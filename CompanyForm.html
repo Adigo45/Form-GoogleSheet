@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Google Sheets Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #a6add8a8;
+      background-image: url('Image/water.jpg'); /* Replace 'background_image.jpg' with your image URL */
+      background-size: cover;
+      background-position: center;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 500px;
+      margin-top: 100px;
+      margin-bottom: 200px;
+      margin-left: 625px;
+      background-color: #cde229dd;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(204, 193, 217, 0.253);
+    }
+    select {
+        margin-left: 20px; /* Adjust as needed */
+        height: 25px;
+        width: 125px;
+    }
+    h1 {
+        text-align: center;
+        font-size: 40px;
+        font-family: Arial, sans-serif;
+        margin-top: 50px;
+        color: #000006;
+    }
+
+    h2 {
+      text-align: center;
+      color: #171718;
+      font-size: 30px;
+    }
+    
+    label {
+      font-weight: bold;
+      color: #0a0719;
+      font-size: larger;
+    }
+    
+    input[type="text"],
+    input[type="date"] {
+      width: 100%;
+      padding: 8px;
+      margin: 6px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    
+    input[type="submit"] {
+      width: 50%;
+      margin-left: 125px;
+      background-color: #ec7a10;
+      color: white;
+      padding: 10px 20px;
+      margin: 30px 125;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+    <h1>List of Companies </h1>
+  <div class="container">
+    <h2>JOB DETAILS</h2>
+    <form id="myForm">
+        <div>
+            <label for="company">Company Name:</label><br>
+            <input type="text" id="company" placeholder="Enter Company Name" name="company" required><br>
+        </div>
+        <br>
+        <div>
+            <label for="location">Location:</label><br>
+            <input type="text" id="location" placeholder="location" name="location" required><br>
+        </div>
+        <br>
+        <div>
+            <label for="position">Position:</label>
+            <select name="position" id="position">
+                <option value="junior">Junior</option>
+                <option value="mid-senior">Mid-Senior</option>
+                <option value="entry">Entry-Level</option>
+                <option value="internship">Internship</option>
+                <option value="phd">PHD</option>
+                <option value="normal">Normal</option>
+            </select><br>
+        </div>
+        <br>
+        <div>
+            <label for="appliedDate">Applied Date:</label><br>
+            <input type="date" id="appliedDate" name="appliedDate" required><br>
+        </div>
+        <br>
+        <div>
+            <label for="responseDate">Response Date:</label><br>
+            <input type="date" id="responseDate" name="responseDate"><br><br>
+        </div>
+        <div>
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("myForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      var formData = new FormData(this);
+      fetch('https://script.google.com/macros/s/AKfycbwPB9zIBvOJorqRjZ6uNNfIwKnHt0RVPzkkewkOD8sFQqiWVQNYky0fxKwmGc9RJSY/exec', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.text())
+      .then(data => {
+        console.log(data);
+        alert('Form submitted successfully!');
+        document.getElementById("myForm").reset(); // Optional: Clear the form after submission
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again later.');
+      });
+    });
+  </script>
+</body>
+</html>
